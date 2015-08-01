@@ -49,6 +49,12 @@ Create text files with content specified in pom.xml (it's possible use maven pro
                         </file>
                     </files>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>write-text-files</id>
+                        <phase>prepare-package</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
