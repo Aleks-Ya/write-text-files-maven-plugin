@@ -11,6 +11,7 @@ It process:
 
 ## Versions history
 ### v 1.1
+0. Escape symbols support (double dollar): `$${property}`
 1. Process empty lines bug
 2. Change log level to info for overwriting exists file
 

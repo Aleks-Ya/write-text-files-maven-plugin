@@ -27,6 +27,8 @@ public class PropertyReplacerTest {
                 "Version: ${project.version}",
                 "Artifact Id: ${project.artifactId}",
                 "Artifact path: ${project.groupId}:${project.artifactId}:${project.version}",
+                "$${project.groupId}: ${project.groupId}",
+                "$$",
                 "",
                 null
         });
@@ -38,6 +40,8 @@ public class PropertyReplacerTest {
                 "Version: 1.0-SNAPSHOT",
                 "Artifact Id: maven-plugin",
                 "Artifact path: ru.yaal.maven:maven-plugin:1.0-SNAPSHOT",
+                "${project.groupId}: ru.yaal.maven",
+                "$$",
                 "",
                 ""
         ));
