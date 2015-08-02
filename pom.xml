@@ -2,7 +2,7 @@
 
     <groupId>ru.yaal.maven</groupId>
     <artifactId>write-text-files-maven-plugin</artifactId>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>Write Text Files Maven Plugin</name>
@@ -48,7 +48,7 @@
         <connection>scm:git:git@github.com:Aleks-Ya/write-text-files-maven-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:Aleks-Ya/write-text-files-maven-plugin.git</developerConnection>
         <url>git@github.com:Aleks-Ya/write-text-files-maven-plugin.git</url>
-        <tag>v1.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencies>
