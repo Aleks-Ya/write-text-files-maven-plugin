@@ -18,13 +18,15 @@ public class PropertyReplacerTest {
         MavenProject project = mock(MavenProject.class);
         when(project.getVersion()).thenReturn("1.0-SNAPSHOT");
         when(project.getArtifactId()).thenReturn("maven-plugin");
+        when(project.getGroupId()).thenReturn("ru.yaal.maven");
 
         FileParameter fp = new FileParameter();
         fp.setNullValue("line-empty");
         fp.setLines(new String[]{
                 "Description: ${project.description}",
                 "Version: ${project.version}",
-                "Artifact Id: ${artifactId}",
+                "Artifact Id: ${project.artifactId}",
+                "Artifact path: ${project.groupId}:${project.artifactId}:${project.version}",
                 "",
                 null
         });
@@ -35,6 +37,7 @@ public class PropertyReplacerTest {
                 "Description: line-empty",
                 "Version: 1.0-SNAPSHOT",
                 "Artifact Id: maven-plugin",
+                "Artifact path: ru.yaal.maven:maven-plugin:1.0-SNAPSHOT",
                 "",
                 ""
         ));
