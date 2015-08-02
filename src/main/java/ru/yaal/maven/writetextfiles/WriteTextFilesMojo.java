@@ -50,7 +50,7 @@ public class WriteTextFilesMojo extends AbstractMojo {
                 }
                 path.getParentFile().mkdirs();
                 if (!path.createNewFile()) {
-                    getLog().warn("Overwrite file: " + path.getAbsolutePath());
+                    getLog().info("Overwrite file: " + path.getAbsolutePath());
                 } else {
                     getLog().info("Write to new file: " + path.getAbsolutePath());
                 }
