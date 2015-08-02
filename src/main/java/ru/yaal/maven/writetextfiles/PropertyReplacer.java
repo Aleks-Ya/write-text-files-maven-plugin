@@ -28,25 +28,29 @@ class PropertyReplacer {
         String[] lines = file.getLines();
         for (int i = 0; i < lines.length; i++) {
             String s = lines[i];
-            Matcher matcher = pattern.matcher(s);
-            while (matcher.find()) {
-                String withBraces = matcher.group(1);
-                String withoutBraces = matcher.group(2);
+            if (s != null) {
+                Matcher matcher = pattern.matcher(s);
+                while (matcher.find()) {
+                    String withBraces = matcher.group(1);
+                    String withoutBraces = matcher.group(2);
 
-                if (withoutBraces.startsWith("project.")) {
-                    withoutBraces = withoutBraces.replaceFirst("project.", "");
-                }
-                Object replaced = ReflectionValueExtractor.evaluate(withoutBraces, project);
-                if (replaced != null) {
-                    s = s.replace(withBraces, replaced.toString());
-                } else {
-                    if (!nullValueException) {
-                        String value = file.getNullValue() != null ? file.getNullValue() : defaultNullValue;
-                        s = s.replace(withBraces, value);
+                    if (withoutBraces.startsWith("project.")) {
+                        withoutBraces = withoutBraces.replaceFirst("project.", "");
+                    }
+                    Object replaced = ReflectionValueExtractor.evaluate(withoutBraces, project);
+                    if (replaced != null) {
+                        s = s.replace(withBraces, replaced.toString());
                     } else {
-                        throw new MojoExecutionException("Value of property was not found: " + withBraces);
+                        if (!nullValueException) {
+                            String value = file.getNullValue() != null ? file.getNullValue() : defaultNullValue;
+                            s = s.replace(withBraces, value);
+                        } else {
+                            throw new MojoExecutionException("Value of property was not found: " + withBraces);
+                        }
                     }
                 }
+            } else {
+                s = "";
             }
             lines[i] = s;
         }

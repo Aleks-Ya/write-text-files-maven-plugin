@@ -24,7 +24,9 @@ public class PropertyReplacerTest {
         fp.setLines(new String[]{
                 "Description: ${project.description}",
                 "Version: ${project.version}",
-                "Artifact Id: ${artifactId}"
+                "Artifact Id: ${artifactId}",
+                "",
+                null
         });
         PropertyReplacer r = new PropertyReplacer(project, "GLOBAL-EMPTY", false);
         r.replace(fp);
@@ -32,7 +34,9 @@ public class PropertyReplacerTest {
         assertThat(fp.getLines(), arrayContaining(
                 "Description: line-empty",
                 "Version: 1.0-SNAPSHOT",
-                "Artifact Id: maven-plugin"
+                "Artifact Id: maven-plugin",
+                "",
+                ""
         ));
     }
 }
