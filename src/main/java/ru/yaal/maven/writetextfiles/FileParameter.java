@@ -6,8 +6,10 @@ import java.io.File;
  * @author Yablokov Aleksey
  */
 public class FileParameter {
+    @SuppressWarnings("unused")
     private File path;
-    private String nullValue;
+
+    @SuppressWarnings("unused")
     private String[] lines;
 
     public File getPath() {
@@ -16,21 +18,5 @@ public class FileParameter {
 
     public String[] getLines() {
         return lines;
-    }
-
-    public String getNullValue() {
-        return nullValue;
-    }
-
-    public void setPath(File path) {
-        this.path = path;
-    }
-
-    public void setNullValue(String nullValue) {
-        this.nullValue = nullValue;
-    }
-
-    public void setLines(String[] lines) {
-        this.lines = lines;
     }
 }
