@@ -13,6 +13,8 @@ import java.nio.file.Files;
 import java.util.Arrays;
 
 /**
+ * todo Escape combination for ${}
+ *
  * @author Aleksey Yablokov.
  */
 @Mojo(name = WriteTextFilesMojo.MOJO_NAME, requiresProject = true)
