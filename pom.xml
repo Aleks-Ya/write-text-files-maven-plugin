@@ -6,7 +6,7 @@
     <packaging>maven-plugin</packaging>
 
     <name>Write Text Files Maven Plugin</name>
-    <description>Create text file with content from pom.xml (it's possible use maven properties)</description>
+    <description>Create a text file with content from pom.xml (it's possible to use Maven properties)</description>
     <inceptionYear>2015</inceptionYear>
     <url>git@github.com:Aleks-Ya/write-text-files-maven-plugin.git</url>
 

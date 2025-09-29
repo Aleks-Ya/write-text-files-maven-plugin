@@ -1,7 +1,7 @@
 #  write-text-files-maven-plugin
 **Create text files with content specified in pom.xml (it's possible to use maven properties).**
 
-It process all maven properties:
+It processes all maven properties:
 * project properties (like `${project.artifactId}`)
 * pom.xml custom properties (like `${spring.version}`),
 * java properties (like `${java.version}`)
