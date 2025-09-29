@@ -101,6 +101,7 @@
                 <version>3.12.0</version>
                 <configuration>
                     <failOnError>false</failOnError>
+                    <doclint>-missing</doclint>
                 </configuration>
                 <executions>
                     <execution>
