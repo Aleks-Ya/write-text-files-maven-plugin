@@ -46,6 +46,14 @@ public class WriteTextFilesMojoTest {
     }
 
     @Test
+    public void windowsLineSeparator() throws Exception {
+        var outputFile = BASE_DIR.resolve("target/version.txt");
+        createMojo("WindowsLineSeparator.xml").execute();
+        var actContent = Files.readString(outputFile, UTF_8);
+        assertThat(actContent).isEqualTo("Line1\r\nLine2");
+    }
+
+    @Test
     public void emptyPath() {
         assertThatThrownBy(() -> createMojo("EmptyPath.xml").execute())
                 .isInstanceOf(MojoExecutionException.class)

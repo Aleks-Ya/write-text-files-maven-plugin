@@ -7,7 +7,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.util.Arrays;
 
 /**
  * @author Aleksey Yablokov.
@@ -27,19 +26,32 @@ public class WriteTextFilesMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         if (files != null) {
             try {
-                for (var file : files) {
-                    var path = file.getPath();
-                    if (path == null) {
+                for (var fileParameter : files) {
+                    var file = fileParameter.getPath();
+                    if (file == null) {
                         throw new MojoExecutionException("Path is empty");
                     }
                     //noinspection ResultOfMethodCallIgnored
-                    path.getParentFile().mkdirs();
-                    if (!path.createNewFile()) {
-                        getLog().info("Overwrite file: " + path.getAbsolutePath());
+                    file.getParentFile().mkdirs();
+                    if (!file.createNewFile()) {
+                        getLog().info("Overwrite file: " + file.getAbsolutePath());
                     } else {
-                        getLog().info("Write to new file: " + path.getAbsolutePath());
+                        getLog().info("Write to new file: " + file.getAbsolutePath());
                     }
-                    Files.write(path.toPath(), Arrays.asList(file.getLines()), Charset.forName(charset));
+                    var lineSeparator = fileParameter.getLineSeparator();
+                    String separator;
+                    switch (lineSeparator) {
+                        case LF:
+                            separator = "\n";
+                            break;
+                        case CRLF:
+                            separator = "\r\n";
+                            break;
+                        default:
+                            separator = System.lineSeparator();
+                    }
+                    var content = String.join(separator, fileParameter.getLines());
+                    Files.writeString(file.toPath(), content, Charset.forName(charset));
                 }
             } catch (MojoExecutionException e) {
                 throw e;

@@ -1,4 +1,4 @@
-#  write-text-files-maven-plugin
+# write-text-files-maven-plugin
 **Create text files with content specified in pom.xml (it's possible to use maven properties).**
 
 It processes all maven properties:
@@ -7,7 +7,6 @@ It processes all maven properties:
 * java properties (like `${java.version}`)
 * OS environment (like `${env.HOME}`)
 * maven's settings.xml properties (like `${settings.offline}`)
-
 
 ## Example
 
@@ -34,6 +33,7 @@ It processes all maven properties:
                     <files>
                         <file>
                             <path>target/version.txt</path>
+                            <lineSeparator>CRLF</lineSeparator> <!--SYSTEM (default), CR, CRLF-->
                             <lines>
                                 <line>=== EASY STRING ===</line>
                                 <line>How to use write-text-files-maven-plugin</line>
