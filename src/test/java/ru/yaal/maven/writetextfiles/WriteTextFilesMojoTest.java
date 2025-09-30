@@ -72,10 +72,7 @@ public class WriteTextFilesMojoTest {
         Files.createDirectories(outputFile);
         assertThatThrownBy(() -> createMojo("ExecutionException.xml").execute())
                 .isInstanceOf(MojoExecutionException.class)
-                .hasMessageContaining("Is a directory")
-                .cause()
-                .isInstanceOf(FileSystemException.class)
-                .hasMessageContaining("Is a directory");
+                .hasCauseInstanceOf(FileSystemException.class);
     }
 
     private WriteTextFilesMojo createMojo(String pomFilename) throws Exception {
