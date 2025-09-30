@@ -9,3 +9,8 @@ Build: `mvn clean package`
 Available versions: https://hub.docker.com/_/maven/tags
 - `./build.sh 3.6.3-jdk-11`
 - `./build.sh 3.9.11-amazoncorretto-11`
+
+## Release
+1. Copy the passphrase for the secret key into the clipboard
+2. Prepare: `mvn release:prepare` (revert: `mvn release:clean`)
+3. Perform: `mvn release:perform`

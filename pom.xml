@@ -157,6 +157,9 @@
             <plugin>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>3.2.8</version>
+                <configuration>
+                    <keyname>775111B956CCF31A85B244F37ADEA5760277DC5B</keyname>
+                </configuration>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -173,6 +176,16 @@
                 <configuration>
                     <useReleaseProfile>false</useReleaseProfile>
                     <scmCommentPrefix>[maven-release-plugin]-</scmCommentPrefix>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.9.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
                 </configuration>
             </plugin>
         </plugins>
@@ -205,17 +218,6 @@
             </build>
         </profile>
     </profiles>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     <modelVersion>4.0.0</modelVersion>
 </project>
