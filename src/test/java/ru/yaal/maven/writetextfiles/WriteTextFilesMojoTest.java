@@ -62,7 +62,7 @@ public class WriteTextFilesMojoTest {
     public void executionException() throws Exception {
         var outputFile = BASE_DIR.resolve("target/version.txt");
         Files.createDirectories(outputFile);
-        assertThatThrownBy(() -> createMojo("OverwriteFile.xml").execute())
+        assertThatThrownBy(() -> createMojo("ExecutionException.xml").execute())
                 .isInstanceOf(MojoExecutionException.class)
                 .hasMessageContaining("Is a directory")
                 .cause()

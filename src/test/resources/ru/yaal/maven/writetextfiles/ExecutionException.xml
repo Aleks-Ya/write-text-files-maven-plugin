@@ -15,7 +15,7 @@
                         <file>
                             <path>target/version.txt</path>
                             <lines>
-                                <line>New Content</line>
+                                <line>Line 1</line>
                             </lines>
                         </file>
                     </files>
