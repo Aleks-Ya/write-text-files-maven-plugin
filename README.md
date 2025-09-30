@@ -103,3 +103,5 @@ Description: ${project.description}
 Buy!
 </pre>
 
+## Development
+See [README-DEV.md](README-DEV.md)
