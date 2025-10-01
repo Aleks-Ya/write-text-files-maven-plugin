@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <groupId>ru.yaal.maven</groupId>
     <artifactId>write-text-files-maven-plugin</artifactId>
@@ -8,7 +9,7 @@
     <name>Write Text Files Maven Plugin</name>
     <description>Create a text file with content from pom.xml (it's possible to use Maven properties)</description>
     <inceptionYear>2015</inceptionYear>
-    <url>git@github.com:Aleks-Ya/write-text-files-maven-plugin.git</url>
+    <url>https://github.com/Aleks-Ya/write-text-files-maven-plugin</url>
 
     <licenses>
         <license>
@@ -28,7 +29,6 @@
             <id>yaal</id>
             <name>Yablokov Aleksey</name>
             <email>ya_al@bk.ru</email>
-            <timezone>+3</timezone>
         </developer>
     </developers>
 

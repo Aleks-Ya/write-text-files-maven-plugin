@@ -14,3 +14,4 @@ Available versions: https://hub.docker.com/_/maven/tags
 1. Copy the passphrase for the secret key into the clipboard
 2. Prepare: `mvn release:prepare` (revert: `mvn release:clean`)
 3. Perform: `mvn release:perform`
+4. Publish the deployment at https://central.sonatype.com/publishing/deployments

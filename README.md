@@ -27,13 +27,13 @@ It processes all maven properties:
             <plugin>
                 <groupId>ru.yaal.maven</groupId>
                 <artifactId>write-text-files-maven-plugin</artifactId>
-                <version>1.1</version>
+                <version>2.0.0</version>
                 <configuration>
                     <charset>UTF-8</charset>
                     <files>
                         <file>
                             <path>target/version.txt</path>
-                            <lineSeparator>CRLF</lineSeparator> <!--SYSTEM (default), CR, CRLF-->
+                            <lineSeparator>SYSTEM</lineSeparator> <!--SYSTEM (default for current OS), LF (Unix), CRLF (Windows)-->
                             <lines>
                                 <line>=== EASY STRING ===</line>
                                 <line>How to use write-text-files-maven-plugin</line>
