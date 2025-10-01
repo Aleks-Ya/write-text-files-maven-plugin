@@ -8,6 +8,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
+import static java.lang.String.format;
+
 /**
  * @author Aleksey Yablokov.
  */
@@ -50,8 +52,13 @@ public class WriteTextFilesMojo extends AbstractMojo {
                         default:
                             separator = System.lineSeparator();
                     }
+                    getLog().info("Line separator: " +
+                            separator.replace("\n", "\\n").replace("\r", "\\r"));
                     var content = String.join(separator, fileParameter.getLines());
-                    Files.writeString(file.toPath(), content, Charset.forName(charset));
+                    var fileCharset = Charset.forName(charset);
+                    getLog().info("Charset: " + fileCharset);
+                    Files.writeString(file.toPath(), content, fileCharset);
+                    getLog().info(format("Output file length: %s bytes", file.length()));
                 }
             } catch (MojoExecutionException e) {
                 throw e;

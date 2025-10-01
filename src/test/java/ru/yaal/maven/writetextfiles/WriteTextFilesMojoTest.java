@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
+import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,7 +31,11 @@ public class WriteTextFilesMojoTest {
         var expUrl = requireNonNull(getClass().getResource("WriteFile.txt"));
         var expContent = Resources.toString(expUrl, UTF_8);
         assertThat(outputFile).hasContent(expContent);
-        assertThat(actStdOut).contains("Write to new file: " + outputFile);
+        assertThat(actStdOut)
+                .contains("Write to new file: " + outputFile)
+                .contains("Line separator: \\n")
+                .contains("Charset: UTF-8")
+                .contains("Output file length: 511 bytes");
     }
 
     @Test
@@ -40,17 +45,46 @@ public class WriteTextFilesMojoTest {
         var oldContent = "Old Content";
         Files.writeString(outputFile, oldContent);
         assertThat(outputFile).hasContent(oldContent);
-        var stdout = tapSystemOut(() -> createMojo("OverwriteFile.xml").execute());
+        var actStdOut = tapSystemOut(() -> createMojo("OverwriteFile.xml").execute());
         assertThat(outputFile).hasContent("New Content\n");
-        assertThat(stdout).contains("Overwrite file: " + outputFile);
+        assertThat(actStdOut)
+                .contains("Overwrite file: " + outputFile)
+                .contains("Line separator: \\n")
+                .contains("Charset: UTF-8")
+                .contains("Output file length: 11 bytes");
     }
 
     @Test
     public void windowsLineSeparator() throws Exception {
         var outputFile = BASE_DIR.resolve("target/version.txt");
-        createMojo("WindowsLineSeparator.xml").execute();
+        var actStdOut = tapSystemOut(() -> createMojo("WindowsLineSeparator.xml").execute());
         var actContent = Files.readString(outputFile, UTF_8);
         assertThat(actContent).isEqualTo("Line1\r\nLine2");
+        assertThat(actStdOut)
+                .contains("Write to new file: " + outputFile)
+                .contains("Line separator: \\r\\n")
+                .contains("Charset: UTF-8")
+                .contains("Output file length: 12 bytes");
+    }
+
+    @Test
+    public void systemLineSeparator() throws Exception {
+        var outputFile = BASE_DIR.resolve("target/version.txt");
+        var actStdOut = tapSystemOut(() -> createMojo("SystemLineSeparator.xml").execute());
+        var actContent = Files.readString(outputFile, UTF_8);
+        assertThat(actContent).isEqualTo("Line1" + lineSeparator() + "Line2");
+        assertThat(actStdOut)
+                .contains("Write to new file: " + outputFile)
+                .contains("Charset: UTF-8");
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            assertThat(actStdOut)
+                    .contains("Line separator: \\r\\n")
+                    .contains("Output file length: 12 bytes");
+        } else {
+            assertThat(actStdOut)
+                    .contains("Line separator: \\n")
+                    .contains("Output file length: 11 bytes");
+        }
     }
 
     @Test

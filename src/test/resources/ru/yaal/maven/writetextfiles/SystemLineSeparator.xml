@@ -14,9 +14,9 @@
                     <files>
                         <file>
                             <path>target/version.txt</path>
-                            <lineSeparator>LF</lineSeparator>
                             <lines>
-                                <line>New Content</line>
+                                <line>Line1</line>
+                                <line>Line2</line>
                             </lines>
                         </file>
                     </files>

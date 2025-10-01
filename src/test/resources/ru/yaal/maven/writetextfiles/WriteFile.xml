@@ -19,6 +19,7 @@
                     <files>
                         <file>
                             <path>target/version.txt</path>
+                            <lineSeparator>LF</lineSeparator>
                             <lines>
                                 <line>=== EASY STRING ===</line>
                                 <line>How to use write-text-files-maven-plugin</line>
