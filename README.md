@@ -11,7 +11,7 @@ It processes all maven properties:
 ## Example
 
 ### pom.xml
-```
+```xml
 <project>
     <groupId>ru.yaal.maven</groupId>
     <artifactId>run-plugin</artifactId>
@@ -27,7 +27,7 @@ It processes all maven properties:
             <plugin>
                 <groupId>ru.yaal.maven</groupId>
                 <artifactId>write-text-files-maven-plugin</artifactId>
-                <version>2.0.0</version>
+                <version>2.1.0</version>
                 <configuration>
                     <charset>UTF-8</charset>
                     <files>
@@ -75,13 +75,15 @@ It processes all maven properties:
 </project>
 ```
 ### Console output
-```
-[INFO] --- write-text-files-maven-plugin:1.1:write-text-files (write-text-files) @ run-plugin ---
-[INFO] Overwrite file: /home/aleks/tmp/run_plugin/target/version.txt
+```text
+[INFO] --- write-text-files:2.1.0:write-text-files (write-text-files) @ run-plugin ---
+[INFO] Write to new file: /home/aleks/tmp/run-plugin/target/version.txt
+[INFO] Line separator: \n
+[INFO] Charset: UTF-8
+[INFO] Output file length: 541 bytes
 ```
 ### Output file version.txt
-
-<pre>
+```text
 === EASY STRING ===
 How to use write-text-files-maven-plugin
 === PROJECT PROPERTIES ===
@@ -91,9 +93,9 @@ Version: 1.0-SNAPSHOT
 === POM.XML PROPERTY ===
 Message: Machines should work; people should think.
 === JAVA PROPERTIES ===
-Java vendor: Oracle Corporation
-Java version: 1.7.0_80
-Java home: /usr/lib/jvm/java-7-oracle/jre
+Java vendor: Azul Systems, Inc.
+Java version: 21.0.6
+Java home: /home/aleks/.sdkman/candidates/java/21.0.6-zulu
 === OS ENVIRONMENT ===
 User dir: /home/aleks
 === MAVEN SETTINGS.XML ===
@@ -101,7 +103,7 @@ Offline: false
 === NULL VALUES ===
 Description: ${project.description}
 Buy!
-</pre>
+```
 
 ## Development
 See [README-DEV.md](README-DEV.md)
