@@ -4,6 +4,7 @@
 
 ### Build on the current Maven version
 Build: `mvn clean package`
+Install the snapshot version to local Maven repository: `mvn clean install`
 
 ### Build on a specific Maven version
 Available versions: https://hub.docker.com/_/maven/tags

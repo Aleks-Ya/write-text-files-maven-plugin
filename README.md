@@ -9,14 +9,13 @@ It processes all maven properties:
 * project properties (like `${project.artifactId}`)
 * pom.xml custom properties (like `${spring.version}`),
 * java properties (like `${java.version}`)
-* OS environment (like `${env.HOME}`)
+* OS environment variables (like `${env.HOME}`)
 * maven's settings.xml properties (like `${settings.offline}`)
 
 ## Example
 
 ### pom.xml
 ```xml
-
 <project>
     <groupId>ru.yaal.maven</groupId>
     <artifactId>run-plugin</artifactId>
@@ -32,18 +31,18 @@ It processes all maven properties:
             <plugin>
                 <groupId>ru.yaal.maven</groupId>
                 <artifactId>write-text-files-maven-plugin</artifactId>
-                <version>2.1.0</version>
+                <version>2.2.0</version>
                 <configuration>
                     <!-- Default values for all files-->
                     <charset>UTF-8</charset>
                     <lineSeparator>SYSTEM</lineSeparator> <!--SYSTEM (default for current OS), LF (Unix), CRLF (Windows)-->
                     <files>
                         <file>
-                            <path>target/version.txt</path>
+                            <path>target/info.txt</path>
                             <lineSeparator>LF</lineSeparator>
                             <charset>Windows-1252</charset>
                             <lines>
-                                <line>=== EASY STRING ===</line>
+                                <line>=== SIMPLE STRING ===</line>
                                 <line>How to use write-text-files-maven-plugin</line>
                                 <line>=== PROJECT PROPERTIES ===</line>
                                 <line>Name: ${project.name}</line>
@@ -55,13 +54,18 @@ It processes all maven properties:
                                 <line>Java vendor: ${java.vendor}</line>
                                 <line>Java version: ${java.version}</line>
                                 <line>Java home: ${java.home}</line>
-                                <line>=== OS ENVIRONMENT ===</line>
+                                <line>=== OS ENVIRONMENT VARIABLES ===</line>
                                 <line>User dir: ${env.HOME}</line>
                                 <line>=== MAVEN SETTINGS.XML ===</line>
                                 <line>Offline: ${settings.offline}</line>
                                 <line>=== NULL VALUES ===</line>
                                 <line>Description: ${project.description}</line>
-                                <line>Buy!</line>
+                            </lines>
+                        </file>
+                        <file>
+                            <path>target/version.txt</path>
+                            <lines>
+                                <line>${project.version}</line>
                             </lines>
                         </file>
                     </files>
@@ -84,15 +88,21 @@ It processes all maven properties:
 ```
 ### Console output
 ```text
-[INFO] --- write-text-files:2.1.0:write-text-files (write-text-files) @ run-plugin ---
-[INFO] Write to new file: /home/aleks/tmp/run-plugin/target/version.txt
+[INFO] --- write-text-files:2.1.1-SNAPSHOT:write-text-files (write-text-files) @ run-plugin ---
+[INFO] Write to new file: /home/aleks/tmp/use-write-text-files/target/info.txt
+[INFO] Line separator: \n
+[INFO] Charset: windows-1252
+[INFO] Output file length: 550 bytes
+[INFO] Write to new file: /home/aleks/tmp/use-write-text-files/target/version.txt
 [INFO] Line separator: \n
 [INFO] Charset: UTF-8
-[INFO] Output file length: 541 bytes
+[INFO] Output file length: 14 bytes
 ```
-### Output file version.txt
+
+### Output files
+`info.txt`:
 ```text
-=== EASY STRING ===
+=== SIMPLE STRING ===
 How to use write-text-files-maven-plugin
 === PROJECT PROPERTIES ===
 Name: Example for write-text-files-maven-plugin
@@ -104,13 +114,17 @@ Message: Machines should work; people should think.
 Java vendor: Azul Systems, Inc.
 Java version: 21.0.6
 Java home: /home/aleks/.sdkman/candidates/java/21.0.6-zulu
-=== OS ENVIRONMENT ===
+=== OS ENVIRONMENT VARIABLES ===
 User dir: /home/aleks
 === MAVEN SETTINGS.XML ===
 Offline: false
 === NULL VALUES ===
 Description: ${project.description}
-Buy!
+```
+
+`version.txt`:
+```text
+1.0.0-SNAPSHOT
 ```
 
 ## Development
