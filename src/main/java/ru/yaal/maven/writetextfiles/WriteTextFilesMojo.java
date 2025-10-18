@@ -5,10 +5,13 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
 import static java.lang.String.format;
+import static ru.yaal.maven.writetextfiles.LineSeparator.SYSTEM;
 
 /**
  * @author Aleksey Yablokov.
@@ -21,7 +24,7 @@ public class WriteTextFilesMojo extends AbstractMojo {
     @Parameter
     private FileParameter[] files;
 
-    @Parameter(defaultValue = "UTF-8")
+    @Parameter
     private String charset;
 
     @Override
@@ -29,34 +32,10 @@ public class WriteTextFilesMojo extends AbstractMojo {
         if (files != null) {
             try {
                 for (var fileParameter : files) {
-                    var file = fileParameter.getPath();
-                    if (file == null) {
-                        throw new MojoExecutionException("Path is empty");
-                    }
-                    //noinspection ResultOfMethodCallIgnored
-                    file.getParentFile().mkdirs();
-                    if (!file.createNewFile()) {
-                        getLog().info("Overwrite file: " + file.getAbsolutePath());
-                    } else {
-                        getLog().info("Write to new file: " + file.getAbsolutePath());
-                    }
-                    var lineSeparator = fileParameter.getLineSeparator();
-                    String separator;
-                    switch (lineSeparator) {
-                        case LF:
-                            separator = "\n";
-                            break;
-                        case CRLF:
-                            separator = "\r\n";
-                            break;
-                        default:
-                            separator = System.lineSeparator();
-                    }
-                    getLog().info("Line separator: " +
-                            separator.replace("\n", "\\n").replace("\r", "\\r"));
+                    var file = getFile(fileParameter);
+                    var separator = getLineSeparator(fileParameter);
                     var content = String.join(separator, fileParameter.getLines());
-                    var fileCharset = Charset.forName(charset);
-                    getLog().info("Charset: " + fileCharset);
+                    var fileCharset = getCharset();
                     Files.writeString(file.toPath(), content, fileCharset);
                     getLog().info(format("Output file length: %s bytes", file.length()));
                 }
@@ -68,6 +47,45 @@ public class WriteTextFilesMojo extends AbstractMojo {
         } else {
             getLog().warn("No files specified in configuration.");
         }
+    }
+
+    private File getFile(FileParameter fileParameter) throws MojoExecutionException, IOException {
+        var file = fileParameter.getPath();
+        if (file == null) {
+            throw new MojoExecutionException("Path is empty");
+        }
+        //noinspection ResultOfMethodCallIgnored
+        file.getParentFile().mkdirs();
+        if (!file.createNewFile()) {
+            getLog().info("Overwrite file: " + file.getAbsolutePath());
+        } else {
+            getLog().info("Write to new file: " + file.getAbsolutePath());
+        }
+        return file;
+    }
+
+    private String getLineSeparator(FileParameter fileParameter) {
+        var lineSeparator = fileParameter.getLineSeparator().orElse(SYSTEM);
+        String separator;
+        switch (lineSeparator) {
+            case LF:
+                separator = "\n";
+                break;
+            case CRLF:
+                separator = "\r\n";
+                break;
+            default:
+                separator = System.lineSeparator();
+        }
+        getLog().info("Line separator: " +
+                separator.replace("\n", "\\n").replace("\r", "\\r"));
+        return separator;
+    }
+
+    private Charset getCharset() {
+        var fileCharset = Charset.forName(charset);
+        getLog().info("Charset: " + fileCharset);
+        return fileCharset;
     }
 
 }

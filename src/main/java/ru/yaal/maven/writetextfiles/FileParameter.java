@@ -1,8 +1,7 @@
 package ru.yaal.maven.writetextfiles;
 
 import java.io.File;
-
-import static ru.yaal.maven.writetextfiles.LineSeparator.SYSTEM;
+import java.util.Optional;
 
 /**
  * @author Yablokov Aleksey
@@ -25,8 +24,8 @@ public class FileParameter {
         return lines;
     }
 
-    public LineSeparator getLineSeparator() {
-        return lineSeparator != null ? lineSeparator : SYSTEM;
+    public Optional<LineSeparator> getLineSeparator() {
+        return Optional.ofNullable(lineSeparator);
     }
 }
 
