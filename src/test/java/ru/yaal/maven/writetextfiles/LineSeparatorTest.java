@@ -9,6 +9,7 @@ import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.yaal.maven.writetextfiles.LineSeparator.CRLF;
+import static ru.yaal.maven.writetextfiles.LineSeparator.LF;
 import static ru.yaal.maven.writetextfiles.MojoAssert.assertMojo;
 
 public class LineSeparatorTest extends BaseTest {
@@ -52,6 +53,23 @@ public class LineSeparatorTest extends BaseTest {
                     .contains("Line separator: \\n")
                     .contains("Output file length: 11 bytes");
         }
+    }
+
+    @Test
+    public void lineSeparatorGlobalLinux() throws Exception {
+        var outputFile = baseDir.resolve("target/info.txt");
+        var mojo = createMojo("LineSeparatorTest_GlobalLinux.xml");
+        assertMojo(mojo).hasCharset("UTF-8").hasLineSeparator(LF).hasFileParameters(
+                file -> FileParameterAssert.assertThat(file)
+                        .hasCharset(null).hasPath(outputFile).hasLineSeparator(null).hasLines("Line1", "Line2"));
+        var actStdOut = tapSystemOut(mojo::execute);
+        var actContent = Files.readString(outputFile, UTF_8);
+        assertThat(actContent).isEqualTo("Line1\nLine2");
+        assertThat(actStdOut)
+                .contains("Write to new file: " + outputFile)
+                .contains("Charset: UTF-8")
+                .contains("Line separator: \\n")
+                .contains("Output file length: 11 bytes");
     }
 
 }

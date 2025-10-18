@@ -16,10 +16,11 @@ It processes all maven properties:
 
 ### pom.xml
 ```xml
+
 <project>
     <groupId>ru.yaal.maven</groupId>
     <artifactId>run-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>Example for write-text-files-maven-plugin</name>
 
     <properties>
@@ -34,10 +35,11 @@ It processes all maven properties:
                 <version>2.1.0</version>
                 <configuration>
                     <charset>UTF-8</charset>
+                    <lineSeparator>SYSTEM</lineSeparator> <!--SYSTEM (default for current OS), LF (Unix), CRLF (Windows)-->
                     <files>
                         <file>
                             <path>target/version.txt</path>
-                            <lineSeparator>SYSTEM</lineSeparator> <!--SYSTEM (default for current OS), LF (Unix), CRLF (Windows)-->
+                            <lineSeparator>LF</lineSeparator>
                             <lines>
                                 <line>=== EASY STRING ===</line>
                                 <line>How to use write-text-files-maven-plugin</line>

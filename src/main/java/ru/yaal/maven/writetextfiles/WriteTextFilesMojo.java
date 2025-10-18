@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.util.Optional;
 
 import static java.lang.String.format;
 import static ru.yaal.maven.writetextfiles.LineSeparator.SYSTEM;
@@ -26,6 +27,9 @@ public class WriteTextFilesMojo extends AbstractMojo {
 
     @Parameter
     private String charset;
+
+    @Parameter
+    private LineSeparator lineSeparator;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -65,21 +69,21 @@ public class WriteTextFilesMojo extends AbstractMojo {
     }
 
     private String getLineSeparator(FileParameter fileParameter) {
-        var lineSeparator = fileParameter.getLineSeparator().orElse(SYSTEM);
-        String separator;
-        switch (lineSeparator) {
+        var separator = fileParameter.getLineSeparator().orElse(Optional.ofNullable(lineSeparator).orElse(SYSTEM));
+        String separatorStr;
+        switch (separator) {
             case LF:
-                separator = "\n";
+                separatorStr = "\n";
                 break;
             case CRLF:
-                separator = "\r\n";
+                separatorStr = "\r\n";
                 break;
             default:
-                separator = System.lineSeparator();
+                separatorStr = System.lineSeparator();
         }
         getLog().info("Line separator: " +
-                separator.replace("\n", "\\n").replace("\r", "\\r"));
-        return separator;
+                separatorStr.replace("\n", "\\n").replace("\r", "\\r"));
+        return separatorStr;
     }
 
     private Charset getCharset() {
