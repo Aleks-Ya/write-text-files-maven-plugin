@@ -1,4 +1,8 @@
 # write-text-files-maven-plugin
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Aleks-Ya_write-text-files-maven-plugin&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Aleks-Ya_write-text-files-maven-plugin)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Aleks-Ya_write-text-files-maven-plugin&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Aleks-Ya_write-text-files-maven-plugin)
+
 **Create text files with content specified in pom.xml (it's possible to use maven properties).**
 
 It processes all maven properties:

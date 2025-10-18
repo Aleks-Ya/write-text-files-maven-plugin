@@ -15,3 +15,7 @@ Available versions: https://hub.docker.com/_/maven/tags
 2. Prepare: `mvn release:prepare` (revert: `mvn release:clean`)
 3. Perform: `mvn release:perform`
 4. Publish the deployment at https://central.sonatype.com/publishing/deployments
+
+## SonarQube
+Project: https://sonarcloud.io/project/overview?id=Aleks-Ya_write-text-files-maven-plugin
+Run locally: `mvn clean package sonar:sonar -Dsonar.token=XXX`
