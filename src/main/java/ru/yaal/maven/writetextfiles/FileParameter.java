@@ -16,6 +16,9 @@ public class FileParameter {
     @SuppressWarnings("unused")
     private LineSeparator lineSeparator;
 
+    @SuppressWarnings("unused")
+    private String charset;
+
     public File getPath() {
         return path;
     }
@@ -27,5 +30,8 @@ public class FileParameter {
     public Optional<LineSeparator> getLineSeparator() {
         return Optional.ofNullable(lineSeparator);
     }
-}
 
+    public Optional<String> getCharset() {
+        return Optional.ofNullable(charset);
+    }
+}

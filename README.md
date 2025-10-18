@@ -34,12 +34,14 @@ It processes all maven properties:
                 <artifactId>write-text-files-maven-plugin</artifactId>
                 <version>2.1.0</version>
                 <configuration>
+                    <!-- Default values for all files-->
                     <charset>UTF-8</charset>
                     <lineSeparator>SYSTEM</lineSeparator> <!--SYSTEM (default for current OS), LF (Unix), CRLF (Windows)-->
                     <files>
                         <file>
                             <path>target/version.txt</path>
                             <lineSeparator>LF</lineSeparator>
+                            <charset>Windows-1252</charset>
                             <lines>
                                 <line>=== EASY STRING ===</line>
                                 <line>How to use write-text-files-maven-plugin</line>

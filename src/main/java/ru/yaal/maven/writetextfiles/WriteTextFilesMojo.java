@@ -9,9 +9,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.util.Optional;
 
 import static java.lang.String.format;
+import static java.nio.charset.Charset.defaultCharset;
+import static java.util.Optional.ofNullable;
 import static ru.yaal.maven.writetextfiles.LineSeparator.SYSTEM;
 
 /**
@@ -39,7 +40,7 @@ public class WriteTextFilesMojo extends AbstractMojo {
                     var file = getFile(fileParameter);
                     var separator = getLineSeparator(fileParameter);
                     var content = String.join(separator, fileParameter.getLines());
-                    var fileCharset = getCharset();
+                    var fileCharset = getCharset(fileParameter);
                     Files.writeString(file.toPath(), content, fileCharset);
                     getLog().info(format("Output file length: %s bytes", file.length()));
                 }
@@ -69,7 +70,7 @@ public class WriteTextFilesMojo extends AbstractMojo {
     }
 
     private String getLineSeparator(FileParameter fileParameter) {
-        var separator = fileParameter.getLineSeparator().orElse(Optional.ofNullable(lineSeparator).orElse(SYSTEM));
+        var separator = fileParameter.getLineSeparator().orElse(ofNullable(lineSeparator).orElse(SYSTEM));
         String separatorStr;
         switch (separator) {
             case LF:
@@ -86,10 +87,11 @@ public class WriteTextFilesMojo extends AbstractMojo {
         return separatorStr;
     }
 
-    private Charset getCharset() {
-        var fileCharset = Charset.forName(charset);
-        getLog().info("Charset: " + fileCharset);
-        return fileCharset;
+    private Charset getCharset(FileParameter fileParameter) {
+        var charsetName = fileParameter.getCharset().orElse(ofNullable(charset).orElse(defaultCharset().name()));
+        var charsetObj = Charset.forName(charsetName);
+        getLog().info("Charset: " + charsetObj);
+        return charsetObj;
     }
 
 }
