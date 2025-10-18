@@ -1,19 +1,18 @@
-=== EASY STRING ===
+=== SIMPLE STRING ===
 How to use write-text-files-maven-plugin
 === PROJECT PROPERTIES ===
 Name: Example for write-text-files-maven-plugin
 ArtifactId: run-plugin
-Version: 1.0-SNAPSHOT
+Version: 1.0.0-SNAPSHOT
 === POM.XML PROPERTY ===
 Message: Machines should work; people should think.
 === JAVA PROPERTIES ===
 Java vendor: ${java.vendor}
 Java version: ${java.version}
 Java home: ${java.home}
-=== OS ENVIRONMENT ===
+=== OS ENVIRONMENT VARIABLES ===
 User dir: ${env.HOME}
 === MAVEN SETTINGS.XML ===
 Offline: false
 === NULL VALUES ===
 Description: ${project.description}
-Buy!

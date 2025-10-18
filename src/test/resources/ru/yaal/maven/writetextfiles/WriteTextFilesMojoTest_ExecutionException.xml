@@ -1,38 +1,26 @@
 <project>
     <groupId>ru.yaal.maven</groupId>
     <artifactId>run-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
+    <version>1.0.0-SNAPSHOT</version>
     <build>
         <plugins>
             <plugin>
                 <groupId>ru.yaal.maven</groupId>
                 <artifactId>write-text-files-maven-plugin</artifactId>
-                <version>1.1</version>
+                <version>2.1.0</version>
                 <configuration>
                     <charset>UTF-8</charset>
                     <files>
                         <file>
-                            <path>target/version.txt</path>
+                            <path>target/info.txt</path>
                             <lines>
-                                <line>Line1</line>
-                                <line>Line2</line>
+                                <line>Line 1</line>
                             </lines>
                         </file>
                     </files>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>write-text-files</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>write-text-files</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
-
     <modelVersion>4.0.0</modelVersion>
 </project>
